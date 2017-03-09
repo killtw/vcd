@@ -51,8 +51,10 @@ let rendererConfig = {
           options: {
             loaders: {
               sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
-              scss: 'vue-style-loader!css-loader!sass-loader'
-            }
+              scss: 'vue-style-loader!css-loader!sass-loader',
+              css: 'vue-style-loader!css-loader'
+            },
+            preserveWhitespace: false
           }
         }
       },
