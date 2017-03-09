@@ -1,8 +1,10 @@
+import Default from './components/Layout/Default';
+
 export default [
   {
     path: '/',
-    name: 'landing-page',
-    component: require('components/LandingPageView'),
+    component: Default,
+    children: Default.routes,
   },
   {
     path: '*',
