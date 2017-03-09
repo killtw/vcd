@@ -21,6 +21,7 @@
   import Main from '../Main';
   import Library from '../Library';
   import History from '../History';
+  import Setting from '../Setting';
   import About from '../About';
 
   export default {
@@ -47,6 +48,11 @@
         path: '/history',
         component: History,
         name: 'history',
+      },
+      {
+        path: '/setting',
+        component: Setting,
+        name: 'setting',
       },
       {
         path: '/about',

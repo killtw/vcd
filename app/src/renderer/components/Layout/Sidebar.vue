@@ -17,7 +17,7 @@
         routes: [
           {
             name: 'queue',
-            icon: 'queue',
+            icon: 'view_list',
           },
           {
             name: 'library',
@@ -26,6 +26,10 @@
           {
             name: 'history',
             icon: 'history',
+          },
+          {
+            name: 'setting',
+            icon: 'settings',
           },
           {
             name: 'about',
