@@ -1,15 +1,19 @@
 <template>
   <div id="#app">
-    <router-view></router-view>
+    <default></default>
   </div>
 </template>
 
 <script>
   import store from 'renderer/vuex/store';
+  import Default from './components/Layout/Default';
   import 'material-design-lite';
 
   export default {
     store,
+    components: {
+      Default,
+    },
   };
 </script>
 

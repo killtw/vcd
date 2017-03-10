@@ -18,11 +18,6 @@
   import componentHandler from 'material-design-lite';
   import Sidebar from './Sidebar';
   import Addbar from './Addbar';
-  import Main from '../Main';
-  import Library from '../Library';
-  import History from '../History';
-  import Setting from '../Setting';
-  import About from '../About';
 
   export default {
     ready: () => {
@@ -32,33 +27,5 @@
       Sidebar,
       Addbar,
     },
-    routes: [
-      {
-        path: '/queue',
-        component: Main,
-        name: 'queue',
-        alias: '/',
-      },
-      {
-        path: '/library',
-        component: Library,
-        name: 'library',
-      },
-      {
-        path: '/history',
-        component: History,
-        name: 'history',
-      },
-      {
-        path: '/setting',
-        component: Setting,
-        name: 'setting',
-      },
-      {
-        path: '/about',
-        component: About,
-        name: 'about',
-      },
-    ],
   };
 </script>
