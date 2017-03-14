@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Electron from 'vue-electron';
 import Resource from 'vue-resource';
 import Router from 'vue-router';
+import VueMdl from 'vue-mdl';
 
 import App from './App';
 import routes from './routes';
@@ -9,6 +10,7 @@ import routes from './routes';
 Vue.use(Electron);
 Vue.use(Resource);
 Vue.use(Router);
+Vue.use(VueMdl);
 Vue.use(require('./filters'));
 Vue.config.debug = true;
 

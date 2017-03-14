@@ -16,6 +16,12 @@ duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
 
+focus-trap@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-2.3.0.tgz#07c91964867d346315f4f5f8df88bf96455316e2"
+  dependencies:
+    tabbable "^1.0.3"
+
 get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
@@ -68,6 +74,10 @@ safe-buffer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
+tabbable@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-1.0.5.tgz#eeeb8abf6ea4b9ebe024189d64b5dcfdb30863ad"
+
 timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
@@ -85,6 +95,12 @@ url-parse-lax@^1.0.0:
 vue-electron@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/vue-electron/-/vue-electron-1.0.6.tgz#e798e03180b8933539defe31f92e53b9242b9406"
+
+vue-mdl@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-mdl/-/vue-mdl-1.1.1.tgz#39277ee9e8fd75d44ddf789498a6dabbb8791808"
+  dependencies:
+    focus-trap "^2.1.0"
 
 vue-resource@^1.0.3:
   version "1.2.1"
