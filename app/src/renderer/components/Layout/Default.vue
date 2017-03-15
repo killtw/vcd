@@ -11,6 +11,8 @@
       </div>
     </main>
 
+    <modal></modal>
+
   </div>
 </template>
 
@@ -18,6 +20,7 @@
   import componentHandler from 'material-design-lite';
   import Sidebar from './Sidebar';
   import Addbar from './Addbar';
+  import Modal from './Modal';
 
   export default {
     ready: () => {
@@ -26,6 +29,7 @@
     components: {
       Sidebar,
       Addbar,
+      Modal,
     },
   };
 </script>
