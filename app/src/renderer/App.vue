@@ -40,6 +40,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+  $image_path: '~material-design-lite/src/images/';
 
   @import '~material-design-lite/src/material-design-lite.scss';
 </style>
