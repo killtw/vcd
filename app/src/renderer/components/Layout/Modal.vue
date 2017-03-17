@@ -17,7 +17,7 @@
       </tbody>
     </table>
     <template slot="actions">
-      <mdl-button primary>Submit</mdl-button>
+      <mdl-button primary @click.native="submit">Submit</mdl-button>
       <mdl-button @click.native="$refs.volumnList.close">Close</mdl-button>
     </template>
   </mdl-dialog>
@@ -36,6 +36,7 @@
         set(value) { this.toggleAll(value); },
       },
       ...mapGetters('sites', {
+        url: 'getUrl',
         title: 'getTitle',
         volumns: 'getList',
         module: 'getModule',
@@ -49,6 +50,19 @@
       },
     },
     methods: {
+      submit() {
+        this.add({
+          title: this.title,
+          url: this.url,
+          volumns: this.checked,
+          module: this.module,
+          total: this.volumns.length,
+        })
+          .then(this.$refs.volumnList.close());
+      },
+      ...mapActions('queues', [
+        'add',
+      ]),
       ...mapActions('sites', [
         'sort',
         'clear',
