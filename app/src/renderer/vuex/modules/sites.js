@@ -73,8 +73,11 @@ const actions = {
     await dispatch('parseUrl', url);
 
     request({
-      uri: url,
+      url,
       transform: (body) => cheerio.load(body),
+      headers: {
+        cookie: 'isAdult=1',
+      },
     })
       .then($ => commit(types.PARSE_PAGE, $))
       .catch(error => console.log('error:', error));
