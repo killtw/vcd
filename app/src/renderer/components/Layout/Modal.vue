@@ -1,43 +1,73 @@
 <template>
-  <mdl-dialog ref="infoMessage" title="Hi there">
-    <p>Hello. This is an information message. You can click outside or in the close button to close it.</p>
-
+  <mdl-dialog ref="volumnList" :title="title" @close="clear">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col">
       <thead>
       <tr>
-        <th></th>
-        <th class="mdl-data-table__cell--non-numeric"></th>
-        <th>Total</th>
-        <th>Checked</th>
-        <th class="mdl-data-table__cell--non-numeric">Status</th>
-        <th class="mdl-data-table__cell--non-numeric">Url</th>
+        <th><mdl-checkbox v-model="all"></mdl-checkbox></th>
+        <th class="mdl-data-table__cell--non-numeric" @click="sort">Title</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td></td>
-        <td class="mdl-data-table__cell--non-numeric">123</td>
-        <td>123</td>
-        <td>123</td>
-        <td class="mdl-data-table__cell--non-numeric">123</td>
-        <td class="mdl-data-table__cell--non-numeric">123</td>
+      <tr v-for="volumn in volumns">
+        <td>
+          <mdl-checkbox @change.native="toggle(volumn.id)" :value="volumn.selected"></mdl-checkbox>
+        </td>
+        <td class="mdl-data-table__cell--non-numeric">{{ volumn.name }}</td>
       </tr>
       </tbody>
     </table>
+    <template slot="actions">
+      <mdl-button primary>Submit</mdl-button>
+      <mdl-button @click.native="$refs.volumnList.close">Close</mdl-button>
+    </template>
   </mdl-dialog>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
-export default {
-    computed: mapGetters('url', ['getList']),
+  export default {
+    computed: {
+      checked() {
+        return this.volumns.filter((volumn) => volumn.selected);
+      },
+      all: {
+        get() { return this.volumns.length === this.checked.length; },
+        set(value) { this.toggleAll(value); },
+      },
+      ...mapGetters('sites', {
+        title: 'getTitle',
+        volumns: 'getList',
+        module: 'getModule',
+      }),
+    },
     watch: {
-      getList(value) {
-        if (value.length) {
-          this.$refs.infoMessage.open();
+      title(value) {
+        if (value) {
+          this.$refs.volumnList.open();
         }
       },
     },
+    methods: {
+      ...mapActions('sites', [
+        'sort',
+        'clear',
+        'toggle',
+        'toggleAll',
+      ]),
+    },
   };
 </script>
+
+<style>
+  .mdl-dialog-container .mdl-dialog {
+    height: 80%;
+  }
+  .mdl-dialog__content {
+    overflow-y: scroll;
+    max-height: 75%;
+    min-height: 75%;
+    padding: 0 24px 24px 24px !important;
+    margin-top: 20px;
+  }
+</style>
