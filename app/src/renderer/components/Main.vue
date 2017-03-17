@@ -13,10 +13,10 @@
       <tbody>
         <tr v-for="(queue, index) in queues">
           <td>{{ index }}</td>
-          <td class="mdl-data-table__cell--non-numeric">{{ queue.name }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ queue.title }}</td>
           <td>{{ queue.total }}</td>
-          <td>{{ queue.checked }}</td>
-          <td class="mdl-data-table__cell--non-numeric">{{ queue.status }}</td>
+          <td>{{ queue.count }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ status[queue.status] }}</td>
           <td class="mdl-data-table__cell--non-numeric">{{ queue.url }}</td>
         </tr>
       </tbody>
@@ -24,12 +24,17 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     data() {
       return {
-        queues: [],
+        status: ['pending', 'downloading', 'done'],
       };
     },
+    computed: mapGetters('queues', {
+      queues: 'getQueues',
+    }),
   };
 </script>
 

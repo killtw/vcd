@@ -75,6 +75,7 @@ const actions = {
     request({
       url,
       transform: (body) => cheerio.load(body),
+      gzip: true,
       headers: {
         cookie: 'isAdult=1',
       },
