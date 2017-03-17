@@ -4,6 +4,7 @@ import request from 'request-promise';
 import cheerio from 'cheerio';
 
 const state = {
+  url: null,
   title: null,
   list: [],
   module: null,
@@ -22,12 +23,14 @@ const getters = {
   getTitle: state => state.title,
   getList: state => state.list,
   getModule: state => state.module,
+  getUrl: state => state.url,
 };
 
 /* eslint-disable no-console */
 const mutations = {
   [types.PARSE_URL](state, url) {
     console.log('parse url:', url);
+    state.url = url;
 
     state.module = _.find(modules, (module) => !!(module.urls.filter(
       regex => url.match(regex)
@@ -46,6 +49,7 @@ const mutations = {
     state.list = state.list.reverse();
   },
   [types.CLEAR_DATA](state) {
+    state.url = null;
     state.title = null;
     state.list = [];
     state.module = null;
