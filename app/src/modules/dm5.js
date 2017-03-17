@@ -11,6 +11,7 @@ const getList = ($) => $('ul.nr6.lan2 a.tg').map((i, el) => {
     id: i,
     url: `http://www.dm5.com/${link.attr('href')}`,
     name: link.attr('title'),
+    selected: false,
   };
 }).get();
 
