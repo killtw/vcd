@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <mdl-button icon="file_download" class="mdl-js-ripple-effect"></mdl-button>
+            <mdl-button icon="file_download" class="mdl-js-ripple-effect" @click.native="start"></mdl-button>
         </div>
     </header>
 </template>
@@ -30,6 +30,7 @@
         }
       },
       ...mapActions('sites', ['add']),
+      ...mapActions('queues', ['start']),
     },
   };
 </script>
