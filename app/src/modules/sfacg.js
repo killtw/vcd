@@ -1,22 +1,23 @@
+const baseUrl = 'http://comic.sfacg.com/';
 const urls = [
   /(\w+)?\.sfacg\.com/,
 ];
 
-const getTitle = ($) => $('h1.font_red .F14PX').text();
+const parsePage = ($) => ({
+  title: $('h1.font_red .F14PX').text(),
+  list: $('ul.serialise_list.Blue_link2 li a').map((i, el) => {
+    const link = $(el);
 
-const getList = ($) => $('ul.serialise_list.Blue_link2 li a').map((i, el) => {
-  const link = $(el);
-
-  return {
-    id: i,
-    url: `http://comic.sfacg.com/${link.attr('href')}`,
-    name: link.text(),
-    selected: false,
-  };
-}).get();
+    return {
+      id: i,
+      url: `${baseUrl}${link.attr('href')}`,
+      name: link.text(),
+      selected: false,
+    };
+  }).get(),
+});
 
 export default {
   urls,
-  getTitle,
-  getList,
+  parsePage,
 };

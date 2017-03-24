@@ -39,10 +39,11 @@ const mutations = {
     console.log('module:', state.module);
   },
   [types.PARSE_PAGE](state, $) {
-    state.title = state.module.getTitle($);
+    const page = state.module.parsePage($);
+    state.title = page.title;
     console.log('title:', state.title);
 
-    state.list = state.module.getList($);
+    state.list = page.list;
     console.log('count:', state.list.length);
   },
   [types.SORT_LIST](state) {
