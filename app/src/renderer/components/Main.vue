@@ -29,7 +29,7 @@
   export default {
     data() {
       return {
-        status: ['pending', 'downloading', 'done'],
+        status: ['Pending', 'Downloading', 'Done'],
       };
     },
     computed: mapGetters('queues', {
