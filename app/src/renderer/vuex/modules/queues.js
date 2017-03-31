@@ -19,6 +19,7 @@ const types = {
 
 const getters = {
   getQueues: state => state,
+  pendings: state => state.filter(queue => queue.status === status.PENDING),
 };
 
 const mutations = {
@@ -51,8 +52,8 @@ const actions = {
     console.log('add job:', job);
     commit(types.ADD_JOB, job);
   },
-  async start({ commit, dispatch, state }) {
-    for (const queue of state.filter(queue => queue.status === status.PENDING)) {
+  async start({ commit, dispatch, getters }) {
+    for (const queue of getters.pendings) {
       commit(types.SET_STATUE, { queue, status: status.DOWNLOADING });
 
       for (const volumn of queue.list.filter(volumn => volumn.done === false)) {
