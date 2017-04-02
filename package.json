@@ -106,6 +106,7 @@
     "webpack-merge": "^2.4.0"
   },
   "dependencies": {
+    "electron-window-state": "^4.1.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.3"
   }

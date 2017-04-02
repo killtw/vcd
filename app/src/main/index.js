@@ -1,5 +1,5 @@
-
 import { app, BrowserWindow } from 'electron';
+const windowStateKeeper = require('electron-window-state');
 
 let mainWindow;
 const winURL = process.env.NODE_ENV === 'development'
@@ -10,10 +10,19 @@ function createWindow() {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+  const mainWindowState = windowStateKeeper({
+    defaultHeight: 600,
+    defaultWidth: 800,
   });
+
+  mainWindow = new BrowserWindow({
+    height: mainWindowState.height,
+    width: mainWindowState.width,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+  });
+
+  mainWindowState.manage(mainWindow);
 
   mainWindow.loadURL(winURL);
 
