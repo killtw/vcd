@@ -1,6 +1,6 @@
 import modules from '../../../modules/index';
 import * as _ from 'lodash';
-import request from 'request-promise';
+import request from '../../request';
 import cheerio from 'cheerio';
 
 const state = {
@@ -76,10 +76,6 @@ const actions = {
     request({
       url,
       transform: (body) => cheerio.load(body),
-      gzip: true,
-      headers: {
-        cookie: 'isAdult=1',
-      },
     })
       .then($ => commit(types.PARSE_PAGE, $))
       .catch(error => console.log('error:', error));

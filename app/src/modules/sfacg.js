@@ -1,7 +1,7 @@
-import request from 'request-promise';
+import request from '../renderer/request';
 import cheerio from 'cheerio';
 
-const baseUrl = 'http://comic.sfacg.com/';
+const baseUrl = 'http://comic.sfacg.com';
 const imgBaseUrl = ['http://hotpic.sfacg.com', 'http://ltpic.sfacg.com'];
 const urls = [/(\w+)?\.sfacg\.com/];
 
@@ -12,7 +12,7 @@ const parsePage = ($) => ({
 
     return {
       id: i,
-      url: `${baseUrl}${link.attr('href')}`,
+      url: `${baseUrl}/${link.attr('href')}`,
       name: link.text(),
       selected: false,
     };
@@ -25,9 +25,8 @@ const getVolumnImages = async (url) => {
   await request({
     url,
     transform: (body) => cheerio.load(body),
-    gzip: true,
   }).then(async $ => {
-    await request(`${baseUrl}${$('script')[1].attribs.src}`)
+    await request(`${baseUrl}/${$('script')[1].attribs.src}`)
       .then(body => {
         const regex = /picAy\[\d+] = "([a-zA-Z0-9\-_/.]+)";/g;
         let match;
