@@ -1,6 +1,7 @@
 import request from 'request-promise';
 import fs from 'fs';
 import fse from 'fs-extra';
+import archiver from 'archiver';
 
 const state = [];
 
@@ -56,20 +57,47 @@ const actions = {
     for (const queue of getters.pendings) {
       commit(types.SET_STATUE, { queue, status: status.DOWNLOADING });
 
-      for (const volumn of queue.list.filter(volumn => volumn.done === false)) {
+      await Promise.all(queue.list.filter(volumn => volumn.done === false).map(async volumn => {
         await dispatch('download', { volumn, module: queue.module, title: queue.title });
+
         commit(types.SET_VOLUMN_DONE, { queue, volumn });
-      }
+
+        await dispatch('compress', {
+          name: volumn.name,
+          path: `/Users/killtw/Downloads/${queue.title}`,
+        });
+      }));
 
       commit(types.SET_STATUE, { queue, status: status.DONE });
     }
   },
   async download({ commit }, job) {
-    for (const img of await job.module.getVolumnImages(job.volumn.url)) {
-      const path = `/Users/killtw/Downloads/${job.title}/${job.volumn.name}`;
-      await fse.ensureDirSync(path);
-      request(img.url).pipe(fs.createWriteStream(`${path}/${img.filename}`));
-    }
+    const path = `/Users/killtw/Downloads/${job.title}/${job.volumn.name}`;
+    await fse.ensureDirSync(path);
+    const imgs = await job.module.getVolumnImages(job.volumn.url);
+
+    await Promise.all(
+      imgs.map(img => new Promise(resolve => {
+        const stream = fs.createWriteStream(`${path}/${img.filename}`);
+        stream.on('finish', resolve);
+        request(img.url).pipe(stream);
+      }))
+    );
+  },
+  async compress({ commit }, payload) {
+    console.log(`${payload.path}/${payload.name}/`);
+    const output = fs.createWriteStream(`${payload.path}/${payload.name}.zip`);
+    const archive = archiver('zip');
+    const path = `${payload.path}/${payload.name}/`;
+
+    output.on('close', () => {
+      console.log(`${archive.pointer()} total bytes`);
+      fse.removeSync(path);
+    });
+
+    archive.pipe(output);
+    archive.directory(path, payload.name)
+      .finalize();
   },
 };
 
