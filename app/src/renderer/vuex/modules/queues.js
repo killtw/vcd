@@ -1,4 +1,4 @@
-import request from 'request-promise';
+import request from '../../request';
 import fs from 'fs';
 import fse from 'fs-extra';
 import archiver from 'archiver';
@@ -42,8 +42,8 @@ const mutations = {
   [types.SET_STATUE](state, series) {
     state.find(queue => queue === series.queue).status = series.status;
   },
-  [types.SET_VOLUMN_DONE](state, series) {
-    state.find(queue => queue === series.queue).list.find(vol => vol === series.volumn).done = true;
+  [types.SET_VOLUMN_DONE](state, volumn) {
+    state.find(queue => queue.list.includes(volumn)).list.find(vol => vol === volumn).done = true;
   },
 };
 
@@ -59,8 +59,6 @@ const actions = {
 
       await Promise.all(queue.list.filter(volumn => volumn.done === false).map(async volumn => {
         await dispatch('download', { volumn, module: queue.module, title: queue.title });
-
-        commit(types.SET_VOLUMN_DONE, { queue, volumn });
 
         await dispatch('compress', {
           name: volumn.name,
@@ -83,21 +81,25 @@ const actions = {
         request(img.url).pipe(stream);
       }))
     );
+
+    commit(types.SET_VOLUMN_DONE, job.volumn);
   },
   async compress({ commit }, payload) {
-    console.log(`${payload.path}/${payload.name}/`);
-    const output = fs.createWriteStream(`${payload.path}/${payload.name}.zip`);
-    const archive = archiver('zip');
-    const path = `${payload.path}/${payload.name}/`;
+    return new Promise(resolve => {
+      const output = fs.createWriteStream(`${payload.path}/${payload.name}.zip`);
+      const archive = archiver('zip');
+      const path = `${payload.path}/${payload.name}/`;
 
-    output.on('close', () => {
-      console.log(`${archive.pointer()} total bytes`);
-      fse.removeSync(path);
+      output.on('close', () => {
+        console.log(`${archive.pointer()} total bytes`);
+        fse.removeSync(path);
+        resolve();
+      });
+
+      archive.pipe(output);
+      archive.directory(path, payload.name)
+        .finalize();
     });
-
-    archive.pipe(output);
-    archive.directory(path, payload.name)
-      .finalize();
   },
 };
 
