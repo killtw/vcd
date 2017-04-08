@@ -17,14 +17,19 @@
 </template>
 
 <script>
-  import componentHandler from 'material-design-lite';
+  import { mapActions } from 'vuex';
   import Sidebar from './Sidebar';
   import Addbar from './Addbar';
   import Modal from './Modal';
 
   export default {
-    ready: () => {
-      componentHandler.upgradeDom();
+    created() {
+      this.initHistory();
+    },
+    methods: {
+      ...mapActions('history', {
+        initHistory: 'init',
+      }),
     },
     components: {
       Sidebar,
