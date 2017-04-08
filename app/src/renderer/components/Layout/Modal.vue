@@ -29,7 +29,7 @@
   export default {
     computed: {
       checked() {
-        return this.volumns.filter((volumn) => volumn.selected);
+        return this.volumns.filter(volumn => volumn.selected);
       },
       all: {
         get() { return this.volumns.length === this.checked.length; },
@@ -50,15 +50,16 @@
       },
     },
     methods: {
-      submit() {
-        this.add({
+      async submit() {
+        await this.add({
           title: this.title,
           url: this.url,
           volumns: this.checked,
           module: this.module,
           total: this.volumns.length,
-        })
-          .then(this.$refs.volumnList.close());
+        });
+
+        this.$refs.volumnList.close();
       },
       ...mapActions('queues', [
         'add',
