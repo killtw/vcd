@@ -8,10 +8,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="history in histories">
-      <td class="mdl-data-table__cell--non-numeric">{{ history.title }}</td>
-      <td class="mdl-data-table__cell--non-numeric">{{ history.url }}</td>
-      <td class="mdl-data-table__cell--non-numeric">{{ history.created_at | datetime }}</td>
+    <tr v-for="{ title, url, created_at } in histories">
+      <td class="mdl-data-table__cell--non-numeric">{{ title }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ url }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ created_at | datetime }}</td>
     </tr>
     </tbody>
   </table>

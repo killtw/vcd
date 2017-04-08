@@ -8,11 +8,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="volumn in volumns">
+      <tr v-for="{ id, selected, name } in volumns">
         <td>
-          <mdl-checkbox @change.native="toggle(volumn.id)" :value="volumn.selected"></mdl-checkbox>
+          <mdl-checkbox @change.native="toggle(id)" :value="selected"></mdl-checkbox>
         </td>
-        <td class="mdl-data-table__cell--non-numeric">{{ volumn.name }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ name }}</td>
       </tr>
       </tbody>
     </table>
