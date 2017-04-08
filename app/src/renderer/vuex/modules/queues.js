@@ -13,7 +13,6 @@ const status = {
 
 const types = {
   ADD_JOB: 'ADD_JOB',
-  ADD_JOBS: 'ADD_JOBS',
   SET_STATUE: 'SET_STATUE',
   SET_VOLUMN_DONE: 'SET_VOLUMN_DONE',
 };
@@ -49,7 +48,7 @@ const mutations = {
 
 /* eslint-disable no-console */
 const actions = {
-  add({ commit }, job) {
+  async add({ commit }, job) {
     console.log('add job:', job);
     commit(types.ADD_JOB, job);
   },
@@ -67,6 +66,12 @@ const actions = {
       }));
 
       commit(types.SET_STATUE, { queue, status: status.DONE });
+
+      dispatch('history/add', {
+        title: queue.title,
+        url: queue.url,
+        created_at: Date.now(),
+      }, { root: true });
     }
   },
   async download({ commit }, job) {

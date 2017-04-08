@@ -35,8 +35,6 @@ const mutations = {
     state.module = _.find(modules, (module) => !!(module.urls.filter(
       regex => url.match(regex)
     ).length));
-
-    console.log('module:', state.module);
   },
   [types.PARSE_PAGE](state, $) {
     const page = state.module.parsePage($);
@@ -47,7 +45,7 @@ const mutations = {
     console.log('count:', state.list.length);
   },
   [types.SORT_LIST](state) {
-    state.list = state.list.reverse();
+    state.list.reverse();
   },
   [types.CLEAR_DATA](state) {
     state.url = null;
